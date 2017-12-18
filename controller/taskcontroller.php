@@ -1,21 +1,38 @@
 <?php 
 class taskcontroller extends controller
 {
-	public static function one()
+	public static function show()
 	{
 		$record = todos::findOne($_REQUEST['id']);
-		self::getTemplate('one_todos',$record);
+		self::getTemplate('todo_edit',$record);
 	}
 
 
 	public static function all()
 	{
 		$record = todos::findAll();
-		self::getTemplate('all_todos',$record);
+		session_start();
+		$userID = $_SESSION['userID'];
+		$tasks = todos::findTaskbyID($userID);
+		//print_r($tasks);
+		//echo $userID;
+		self::getTemplate('all_tasks',$tasks);
+
 	}
 
 
+	public static function store()//
+	{
+		$record = todos::findOne($_REQUEST['id']);
 
+	}
+
+
+	public static function newtodoform()
+	{
+		$todo = new todo();
+		self::getTemplate( 'todo',$todo);
+	}
 
 
 	public static function save()
@@ -26,7 +43,7 @@ class taskcontroller extends controller
 		$task->owneremail = $_POST['owneremail'];
 		$task->isdone = $_POST['isdone'];
 		$task->save();
-
+		header("Location:index.php?page=tasks&action=all");
 	}
 
 
@@ -42,8 +59,14 @@ class taskcontroller extends controller
 
 	public static function create()
 	{
-      //  self::getTemplate('create_task', $record);
-		
+       $todo = new todo();
+       session_start();
+	   $todo->ownerid = $_SESSION['userID'];
+	  // $todo->createdudate = now();
+	   $todo->isdone = $_POST['isdone'];
+	   $todo->message = $_POST['message'];
+	   $todo->dudate = $_POST['dudate'];
+	   $todo->save();
 	}
 
 

@@ -1,4 +1,5 @@
 <?php 
+namespace controller;
 class accountscontroller extends controller
 {
 	public static function one()
@@ -26,7 +27,23 @@ class accountscontroller extends controller
 
 	public static function login()
 	{
-
+		$user = accounts::findUserbyEmail($_REQUEST['email']);
+		if($user == FALSE)
+		{
+			echo 'user not validate';
+		}else
+		{
+			if($user->checkPassword($_POST['password']) == TRUE)
+			{
+				echo 'login';
+				session_start();
+				$_SESSION['userID'] = $user->id;
+				header("Location:index.php?page=tasks&action=all");
+			}else
+			{
+				echo 'password not match';
+			}
+		}
 
 	}
 
@@ -35,8 +52,19 @@ class accountscontroller extends controller
 	{
 
 
-		
+		header("Location:index.php?page=accounts&action=all");
+
 	}
+
+	public static function logout()
+	{
+ 		session_start();
+        session_destroy();
+        header('Location: index.php');
+
+
+	}
+
 
 
 	public static function save()//after updating form,save this record
