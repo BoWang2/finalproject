@@ -1,12 +1,10 @@
-<?php 
-namespace controller;
-
+<?php  namespace controller;
 class processRequest
 {
 	public static function createResponse()
 	{
 		$requested_route = processRequest::getRequestedRoute();
-		$controller_name = $requested_route->controller;//This is an important function to look at, it determines which controller to use
+		$controller_name = "controller\\" . $requested_route->controller;//This is an important function to look at, it determines which controller to use
 		$controller_method = $requested_route->method;//this determine the way that call controller
 		$controller_name::$controller_method();
 
@@ -17,7 +15,7 @@ class processRequest
 		$request_method = request::getRequestedMethod();
 		$page = request::getRequestPage();
 		$action = request::getAction();
-		$routes = \routes::getRoutes();
+		$routes = \routes\routes::getRoutes();
     	$foundRoute = NULL;
 
 		foreach($routes as $route)//this figures out which route matches the page being requested in the URL and returns it so that the controller and method can be called
@@ -33,9 +31,9 @@ class processRequest
             exit;
         } else {
             return $foundRoute;
-	}
+		}
 
-}
+	}
 
 }
 

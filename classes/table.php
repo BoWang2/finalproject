@@ -2,6 +2,33 @@
 namespace classes;
 class table
 {
+	
+		//static public function generateOnetable()
+		//{
+
+
+
+		//}
+
+
+
+
+	//	static public function generateMultable()
+	//	{
+
+
+	//	}
+
+
+
+
+
+
+
+
+
+
+
 	static public function generateTable($array)
 	{
 		$table = htmlTags::tableHead();//<table width="300" border="1">
@@ -22,7 +49,7 @@ class table
 				{
 					$table .= htmlTags::tableDetail('<a href="index.php?page=' . $container . '&action=show&id=' . $value . '">View</a>');
 				}else{
-				if()
+				
 				$table .= htmlTags::tableDetail($value);
 			}
 			}

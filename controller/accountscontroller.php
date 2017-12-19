@@ -6,7 +6,6 @@ class accountscontroller extends controller
 	{
 		$record = accounts::findOne($_REQUEST['id']);
 		self::getTemplate('one_accounts',$record);
-
 	}
 
 	public static function all()
@@ -51,8 +50,7 @@ class accountscontroller extends controller
 	public static function register()
 	{
 
-
-		header("Location:index.php?page=accounts&action=all");
+		self::getTemplate('register',$record);
 
 	}
 
@@ -67,9 +65,9 @@ class accountscontroller extends controller
 
 
 
-	public static function save()//after updating form,save this record
+	public static function save()
 	{
-		$user =  accounts::findOne($_REQUEST['id']);
+		$user =  collection\accounts::findOne($_REQUEST['id']);
 		$user->email = $_POST['email'];
         $user->fname = $_POST['fname'];
         $user->lname = $_POST['lname'];
@@ -93,7 +91,10 @@ class accountscontroller extends controller
 	{
 
 
+
 	}
+
+
 
 }
 

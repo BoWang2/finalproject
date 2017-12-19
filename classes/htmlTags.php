@@ -14,6 +14,11 @@ class htmlTags
 
 	static public function tableTitle($input)
 	{
+		return '<th>'.$input.'<th>';
+	}
+
+	static public function tableDetail($input)
+	{
 		return '<td>'.$input.'</td>';
 	}
 

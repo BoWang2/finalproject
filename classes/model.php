@@ -3,36 +3,45 @@ namespace classes;
 abstract class model
 {
 
-	static public function create()
-	{
-		$model = new static::$modelName;
-		return $model;
-	}
+	//static public function create()
+	//{
+	//	$model = new static::$modelName;
+	//	return $model;
+	//}
 
 
 
 	public function save()
 	{
 // add validation
-		$db = dbConn::getConnection();
-		$array = get_object_vars($this);
-		$columString = implode(',', array_flip($array));
-		$valueString = implode(',', array_flip($array));
-		if ($this->id != '') 
+		 if ($this->id != '') 
 		{
             $sql = $this->update();
         } else {
-            $sql = $this->insert($columString,$valueString);
-           
+            $sql = $this->insert();
+            $INSERT = TRUE;
+        }
+        $db = dbConn::getConnection();
+        $statement = $db->prepare($sql);
+        $array = get_object_vars($this);
+        if ($INSERT == TRUE) 
+        {
+            unset($array['id']);
+        }
+        foreach (array_flip($array) as $key => $value) 
+        {
+            $statement->bindParam(":$value", $this->$value);
+        }
+        $statement->execute();
+        if ($INSERT == TRUE) 
+        {
             $this->id = $db->lastInsertId();
         }
-        $statement = $db->prepare($sql);
-		$statement->execute();
-		return $this->id;
+        return $this->id;
+        }
 
 
-	}
-
+		
 
 
 	public function insert($colum,$value)
@@ -41,8 +50,6 @@ abstract class model
 		$tableName = $modelName::getTableName();
 		$sql = ' INSERT INTO ' . $tableName . ' (' . $colum . ') VALUES (' . $value . ')'; 
 		return $sql;
-
-
 	}
 
 
@@ -84,7 +91,7 @@ abstract class model
 			{
 				$statement = $db->prepare($sql);
 				$statement->execute();
-			}catch (PDOException $e)
+			}catch (\PDOException $e)
 			{
 				 echo "SQL error: " . $e->getMessage();
 			}

@@ -1,6 +1,5 @@
-<?php 
-//namespace collection;
-class accounts extends classes\collection
+<?php namespace collection;
+class accounts extends \classes\collection
 {
 	protected static $modelName = 'account';
 

@@ -2,7 +2,7 @@
 namespace controller;
 class request
 {
-	static public function getRequestMethod()
+	static public function getRequestedMethod()
 	{
 
 		$request_method = $_SERVER['REQUEST_METHOD'];
@@ -23,7 +23,7 @@ class request
 
 	static public function getAction()
 	{
-		if(self::getRequestMethod()=='POST')
+		if(self::getRequestedMethod()=='POST')
 			{
 				$action = 'create';
 			}

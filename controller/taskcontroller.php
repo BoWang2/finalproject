@@ -51,15 +51,23 @@ class taskcontroller extends controller
 	{
 		$record = todos::findOne($_REQUEST['id']);
 		$record->delete();
-		//print
+		//display all
 
 	}
 
 
 
+//create form for creating task
+public static function createform()
+{
+		self::getTemplate( 'todo',$data);
+
+}
+
 	public static function create()
 	{
-       $todo = new todo();
+       
+	   $todo = new todo();
        session_start();
 	   $todo->ownerid = $_SESSION['userID'];
 	  // $todo->createdudate = now();
@@ -70,6 +78,17 @@ class taskcontroller extends controller
 	}
 
 
+
+
+	public static function edittask()
+	{
+		//dispalu
+		//post send
+		//save
+		//show all task
+
+
+	}
 
 
 }

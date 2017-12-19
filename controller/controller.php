@@ -2,9 +2,9 @@
 namespace controller;
 class controller
 {
-	static public function getTmplate($template,$data = NULL)
+	static public function getTemplate($template,$data = NULL)
 	{
-		$tmplate = 'page/' . $template . '.php';
+		$template = 'page/' . $template . '.php';
 
 		include $template;
 	}

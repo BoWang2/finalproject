@@ -1,5 +1,4 @@
 <?php 
-namespace controllers;
 class homepageController extends controller
 {
 	//this is index page

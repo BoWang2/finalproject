@@ -2,63 +2,36 @@
 namespace classes;
 abstract class collection
 {
-	//static public function create()
-	//{
-	//	$model = new static::$modelName;
-	//	return $model;
-	//}
-
-
-	static public function findAll()
+	static public function create()
 	{
-		$db = classes\dbConn::getConnection();
-		if (!empty($db)) {
-                $class = static::$modelName;
-                $sql = 'SELECT * FROM ' . $class;
-                try {
-                    $statement = $db->prepare($sql);
-                    $statement->execute();
-                    $statement->setFetchMode(\PDO::FETCH_CLASS, $class);
-                    $recordsSet = $statement->fetchAll();
-                    $recordsSet = findAll::objToArray($recordsSet);
-                    return $recordsSet;
-                      } catch (\PDOException $e){
-                    echo "SQL error: " . $e->getMessage();
-                }
-            }
-       }
-	
+		$model = new static::$modelName;
+		return $model;
+	}
 
-       static public function objToArray($obj)
-      {
-             foreach ($obj as $key => $objects) 
-             {
-                $obj[$key] = (array) $objects;
-             }
-             return $obj;
-      }
+
+	    static public function findAll()
+    {
+        $tableName = get_called_class();
+        $sql = 'SELECT * FROM ' . $tableName;
+        return self::getResults($sql);
+    }
 
 
 
 
-	static public function findOne($id)
-	{
-		 $db = classes\dbConn::getConnection();
-		 if (!empty($db)) {
-                $class = static::$modelName;
-                $sql = 'SELECT * FROM ' . $class . ' WHERE id = ' . $id;
-                try {
-                    $statement = $db->prepare($sql);
-                    $statement->execute();
-                    $statement->setFetchMode(\PDO::FETCH_CLASS, $class);
-                    $recordsSet = $statement->fetchAll();
-                    $recordsSet = findAll::objToArray($recordsSet);
-                    return $recordsSet;
-                } catch (\PDOException $e){
-                   echo "SQL error: " . $e->getMessage();
-                }
-            }
+
+	 static public function findOne($id)
+    {
+        $tableName = get_called_class();
+        $sql = 'SELECT * FROM ' . $tableName . ' WHERE id = ?';
+        //grab the only record for find one and return as an object
+        $recordsSet = self::getResults($sql, $id);
+        if (is_null($recordsSet)) {
+            return FALSE;
+        } else {
+            return $recordsSet[0];
         }
+    }
 	
 
 
@@ -67,7 +40,7 @@ abstract class collection
         if (!is_array($parameters)) {
             $parameters = (array) $parameters;
         }
-        $db = classes\dbConn::getConnection();
+        $db = dbConn::getConnection();
         $statement = $db->prepare($sql);
         $statement->execute($parameters);
         $class = static::$modelName;
