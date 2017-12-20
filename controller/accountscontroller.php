@@ -4,13 +4,13 @@ class accountscontroller extends controller
 {
 	public static function one()
 	{
-		$record = accounts::findOne($_REQUEST['id']);
+		$record = \collection\accounts::findOne($_REQUEST['id']);
 		self::getTemplate('one_accounts',$record);
 	}
 
 	public static function all()
 	{
-		$record = accounts::findAll();
+		$record = \collection\accounts::findAll();
 		self::getTemplate('all_accounts',$record);
 	}
  
@@ -26,7 +26,7 @@ class accountscontroller extends controller
 
 	public static function login()
 	{
-		$user = accounts::findUserbyEmail($_REQUEST['email']);
+		$user = \collection\accounts::findUserbyEmail($_REQUEST['email']);
 		if($user == FALSE)
 		{
 			echo 'user not validate';

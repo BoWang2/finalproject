@@ -1,7 +1,7 @@
 <?php
 
-//namespace collection;
-class todos extends classes\collection
+namespace collection;
+class todos extends \classes\collection
 {
     protected static $modelName = 'todo';
     public static  function findTasksbyID($userid) {

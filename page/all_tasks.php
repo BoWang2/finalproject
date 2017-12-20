@@ -6,7 +6,7 @@
 <?php 
 
 
-print table::generateTable($data);
+print \classes\table::generateTable($data);
 
 
  ?>

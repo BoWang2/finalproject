@@ -11,9 +11,13 @@ abstract class collection
 
 	    static public function findAll()
     {
-        $tableName = get_called_class();
+        $tableName = substr(get_called_class(), 11);
+
+        echo $tableName;
         $sql = 'SELECT * FROM ' . $tableName;
+        echo $sql . "<br>";
         return self::getResults($sql);
+
     }
 
 

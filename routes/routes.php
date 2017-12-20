@@ -8,7 +8,7 @@ class routes
 		$route->http_method = 'GET';
 		$route->page = 'homepage';
  		$route->action = 'show';
- 		$route->controller = 'homepageController';
+ 		$route->controller = 'homepagecontroller';
         $route->method = 'show';
         $routes[] = $route;
 
@@ -25,7 +25,7 @@ class routes
 		$route->http_method = 'POST';
 		$route->action = 'create';
 		$route->page = 'tasks';
-		$route->controller = 'tasksController';
+		$route->controller = 'taskscontroller';
 		$route->method = 'create';
 		$routes[] = $route;
 
@@ -36,7 +36,7 @@ class routes
 		$route->http_method = 'GET';
 		$route->action = 'show';
 		$route->page = 'tasks';
-		$route->controller = 'tasksController';
+		$route->controller = 'taskscontroller';
 		$route->method = 'show';
 		$routes[] = $route;
 
@@ -45,7 +45,7 @@ class routes
 		$route->http_method = 'GET';
 		$route->action = 'all';
 		$route->page = 'tasks';
-		$route->controller = 'tasksController';
+		$route->controller = 'taskscontroller';
 		$route->method = 'all';
 		$routes[] = $route;
 
@@ -54,7 +54,7 @@ class routes
 		$route->http_method = 'POST';
 		$route->action = 'save';
 		$route->page = 'tasks';
-		$route->controller = 'tasksController';
+		$route->controller = 'taskscontroller';
 		$route->method = 'save';
 		$routes[] = $route;
 
